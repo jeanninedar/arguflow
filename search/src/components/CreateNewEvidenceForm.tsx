@@ -22,6 +22,7 @@ const SearchForm = () => {
   const [_private, setPrivate] = createSignal(false);
   const [isLoadingAutoCut, setIsLoadingAutoCut] = createSignal(false);
   const [autoCutErrorText, setAutoCutErrorText] = createSignal("");
+  const [tagSet, setTagSet] = createSignal("");
   const [autoCutSuccessText, setAutoCutSuccessText] =
     createSignal<JSXElement>("");
   const [autoCutSuccessCount, setAutoCutSuccessCount] = createSignal(0);
@@ -62,6 +63,7 @@ const SearchForm = () => {
         card_html: cardHTMLContentValue,
         link: evidenceLinkValue,
         private: _private(),
+        tag_set: tagSet(),
       }),
     }).then((response) => {
       if (response.status === 401) {
@@ -217,6 +219,16 @@ const SearchForm = () => {
                 true,
               "border border-red-500": errorFields().includes("evidenceLink"),
             }}
+          />
+        </div>
+        <div class="flex flex-col space-y-2">
+          <div>Tag Set</div>
+          <input
+            type="text"
+            placeholder="optional - separate with commas"
+            value={tagSet()}
+            onInput={(e) => setTagSet(e.target.value)}
+            class="w-full rounded-md border border-gray-300 bg-neutral-100 px-4 py-1 dark:bg-neutral-700"
           />
         </div>
         <div class="flex flex-col space-y-2">
